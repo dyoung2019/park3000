@@ -25,7 +25,7 @@ fetchParkingSensorData
   - status
     - string 
     - bool Present / Unoccupied 
-  - location -
+  - location
     - string
     - formatted string of {lat, long}
   - lat
