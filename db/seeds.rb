@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# require 'json'
+# data = JSON.parse(File.read('../data/On-street Parking Bays.geojson'))
+
+# data.each do |row|
+#     p = ParkingBay.new
+#     p.bay_id = row["name"]
+#     p.save
+# end
+
