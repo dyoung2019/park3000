@@ -1,0 +1,2 @@
+class PayStayZonesController < ApplicationController
+end
