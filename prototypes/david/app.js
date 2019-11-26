@@ -37,17 +37,7 @@ var getMap = () => {
   mapObject = map
 }
 
-var handleMapControlScriptLoaded = () => {
-  getMap()
-  mapControlLoaded = true
-  console.log('Script for Microsoft Map Control now loaded')
-}
-
-var handleOnRefresh = () => {
-  console.log('all done')
-}
-
-var handleInterval = () => { 
+var updateParkingBaysOnMap = () => { 
 
   // GUARD CLAUSE for use Bing Maps JS classes
   if (!mapControlLoaded) {
@@ -61,7 +51,7 @@ var handleInterval = () => {
     for (var i = mapObject.entities.getLength() - 1; i >= 0; i--) {
       var pushpin = mapObject.entities.get(i);
       if (pushpin instanceof Microsoft.Maps.Pushpin) {
-        map.entities.removeAt(i);
+        mapObject.entities.removeAt(i);
       }
     }
   }
@@ -70,7 +60,7 @@ var handleInterval = () => {
     var pinLocation = new Microsoft.Maps.Location(sensor.lat, sensor.lon);
 
     var pinStatus = 'U'
-    var pinColor = 'red'
+    var pinColor = 'magenta'
     if (sensor.status === 'Present') {
       pinStatus = 'P'
       pinColor = 'green'
@@ -116,16 +106,31 @@ var handleInterval = () => {
   fetchParkingSensorData()
 }
 
-// var updateInterval = 120000;
-var updateInterval = 60000;
+var handleMapControlScriptLoaded = () => {
+  getMap()
+  mapControlLoaded = true
+  console.log('Script for Microsoft Map Control now loaded')
+  updateParkingBaysOnMap()
+}
 
-// var intervalID = setInterval(handleInterval, updateInterval)
+var handleOnRefresh = () => {
+  console.log('all done')
+}
 
-refreshOffBtn.addEventListener('click', handleInterval)
+var updateInterval = 120000; // 2 mins
+// var updateInterval = 60000; // 1 min
 
-// var handleClick = () =>  {
-//   clearInterval(intervalID)
-// }
+var intervalID = setInterval(updateParkingBaysOnMap, updateInterval)
+
+// MANUALLY CLICK TO REFRESH
+// refreshOffBtn.addEventListener('click', handleInterval)
+
+var handleClick = () =>  {
+  // SWITCH OFF AUTO REFRESH
+  clearInterval(intervalID)
+}
+
+refreshOffBtn.addEventListener('click', handleClick)
 
 // ON SCRIPT LOAD
 loadApiKeys()
