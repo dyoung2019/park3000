@@ -31,7 +31,7 @@ fetchParkingSensorData
   - lat
     - Number
     - latitude component of location
-  - lat 
+  - lon
     - Number 
     - longitude component of location
 

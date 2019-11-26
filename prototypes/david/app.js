@@ -1,8 +1,9 @@
+// DOM ELEMENTS 
 var refreshOffBtn = document.querySelector('.refresh-off-button')
 
-var apiKeys = {
-  
-}
+// GLOBAL JS VARIABLES
+var sensorRequestLimit = 4000
+var apiKeys = {}
 
 var loadApiKeys = () => {
   var params = new URLSearchParams(window.location.search)
@@ -11,8 +12,6 @@ var loadApiKeys = () => {
     apiKeys[key] = value
   }
 }
-
-loadApiKeys()
 
 // Bing Maps classes are parsed and loaded once this flag is true
   // Add this line to prevent code 
@@ -39,54 +38,94 @@ var getMap = () => {
 }
 
 var handleMapControlScriptLoaded = () => {
-  console.log('Script for Microsoft Map Control now loaded')
-
-  mapControlLoaded = true
   getMap()
+  mapControlLoaded = true
+  console.log('Script for Microsoft Map Control now loaded')
 }
 
 var handleOnRefresh = () => {
   console.log('all done')
 }
 
-var handleTimeout = () => { 
+var handleInterval = () => { 
 
   // GUARD CLAUSE for use Bing Maps JS classes
-  if (!mapControlLoaded)
+  if (!mapControlLoaded) {
+    console.log('map object not loaded')
     return
-
-  var handleSensorResponse = (resp) => {
-    var sensorData = resp
-
-      var handleResponse = results => {
-        sensorData.forEach(addPin)
-      }
-
-      $.ajax({ url: url }).done(handleResponse)
-  }  
-
-
-//   var limit = 4000
-//   var offset = 0
-
-  var options = {
-    // melbourne sensor data url
-    url: `https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json`,
-    data: {
-      "$limit" : limit,
-      "$offset": offset,
-    }
   }
 
-  $.ajax(options).done(handleSensorResponse)
+  var sensorData = []
+  
+  var removeAllPinsFromMap = () => {
+    for (var i = mapObject.entities.getLength() - 1; i >= 0; i--) {
+      var pushpin = mapObject.entities.get(i);
+      if (pushpin instanceof Microsoft.Maps.Pushpin) {
+        map.entities.removeAt(i);
+      }
+    }
+  }
+  
+  var drawPin = sensor => {
+    var pinLocation = new Microsoft.Maps.Location(sensor.lat, sensor.lon);
+
+    var pinStatus = 'U'
+    var pinColor = 'red'
+    if (sensor.status === 'Present') {
+      pinStatus = 'P'
+      pinColor = 'green'
+    }
+
+    var pin = new Microsoft.Maps.Pushpin(pinLocation, 
+      {
+        title: sensor.st_marker_id,
+        text: pinStatus,
+        color: pinColor
+      })
+    mapObject.entities.add(pin)
+  }
+
+  var drawPinsOnMap = () => {
+    removeAllPinsFromMap()
+    sensorData.forEach(drawPin)
+    handleOnRefresh()
+  }
+
+  var handleResponse = (resp) => {
+    sensorData = resp
+    console.log(sensorData)
+
+    drawPinsOnMap()
+  }  
+
+  var fetchParkingSensorData = () => {
+    var offset = 0
+
+    var options = {
+      // melbourne sensor data url
+      url: `https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json`,
+      data: {
+        "$limit" : sensorRequestLimit,
+        "$offset": offset,
+      }
+    }
+
+    $.ajax(options).done(handleResponse)
+  }
+
+  fetchParkingSensorData()
 }
 
 // var updateInterval = 120000;
 var updateInterval = 60000;
 
-// var interval = setInterval(handleTimeout, updateInterval)
+// var intervalID = setInterval(handleInterval, updateInterval)
 
-// var handleClick = () => {
-//   clearInterval(interval)
+refreshOffBtn.addEventListener('click', handleInterval)
+
+// var handleClick = () =>  {
+//   clearInterval(intervalID)
 // }
 
+// ON SCRIPT LOAD
+loadApiKeys()
