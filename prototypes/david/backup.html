@@ -1,0 +1,58 @@
+  <!-- <script type='text/javascript'>
+    var mapObject = null
+    // var url = 'http://localhost:3000/places'
+    var results = []
+    var center = null
+
+    var getMap = () => {
+      //Add your post map load code here.
+      center = new Microsoft.Maps.Location(-37.818352, 144.959023);
+
+      var map = new Microsoft.Maps.Map('#myMap', 
+        {
+          credentials: 'ApvJ5Vmzho467hcFG9ZxwSSIh03mII8Ut6a2BWPujLRMK9OcmorOTK1kbUVKfopW',
+          center: center,
+          mapTypeId: Microsoft.Maps.MapTypeId.road,
+          zoom: 16
+        }
+      );
+      mapObject = map
+
+      var pinLocation = center;
+       //Create custom Pushpin
+      var pin = new Microsoft.Maps.Pushpin(
+        pinLocation, 
+        {
+          title: 'Hello',
+          subTitle: 'SEI rocks',
+          text: 'P'
+        }
+      );
+
+      //Add the pushpin to the map
+      mapObject.entities.push(pin); -->
+
+      // var addPin = (result, index) => {
+        //   var pinLocation = new Microsoft.Maps.Location(result.location.lat, result.location.long);
+  
+        //   //Create custom Pushpin
+        //   var pin = new Microsoft.Maps.Pushpin(
+        //     pinLocation, 
+        //     {
+        //       title: result.name,
+        //       subTitle: 'SEI rocks',
+        //       text: index.toString()
+        //     }
+        //   );
+  
+        //   //Add the pushpin to the map
+        //   map.entities.push(pin);
+        // }
+  
+        // var handleResponse = results => {
+        //   results.forEach(addPin)
+        // }
+  
+        // $.ajax({ url: url }).done(handleResponse)
+      <!-- } -->
+    <!-- </script>  -->

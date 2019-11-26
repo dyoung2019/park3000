@@ -104,7 +104,7 @@ var handleTimeout = () => {
   $.ajax(sensor_options).done(handleSensorResponse)
 }
 
-var updateTimer = setTimer(handleTimeout, 2 mins (240 secs => 2400 ms))
+var updateTimer = setInterval(handleTimeout, 2 mins (120 secs => 120000 ms))
 
 ````
 
@@ -131,7 +131,7 @@ var handleTimeout = () => {
         {
 
         }
-        
+
         sensorData.each(addBayToMap)
       }
 
@@ -157,6 +157,6 @@ var handleTimeout = () => {
   $.ajax(bing_options).done(handleRequest)
 }
 
-var updateTimer = setTimer(handleTimeout, 2 mins (240 secs => 2400 ms))
+var setInterval = setTimer(handleTimeout, 2 mins (120 secs => 120000 ms))
 
 ````
