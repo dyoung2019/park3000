@@ -60,10 +60,10 @@ var updateParkingBaysOnMap = () => {
     var pinLocation = new Microsoft.Maps.Location(sensor.lat, sensor.lon);
 
     var pinStatus = 'U'
-    var pinColor = 'magenta'
+    var pinColor = 'green'
     if (sensor.status === 'Present') {
       pinStatus = 'P'
-      pinColor = 'green'
+      pinColor = 'magenta'
     }
 
     var pin = new Microsoft.Maps.Pushpin(pinLocation, 
