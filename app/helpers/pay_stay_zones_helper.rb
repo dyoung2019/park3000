@@ -1,0 +1,2 @@
+module PayStayZonesHelper
+end
