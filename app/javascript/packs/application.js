@@ -72,7 +72,7 @@ window.addEventListener('load', () => {
 
   var handleForm = (event) => {
     event.preventDefault()
-    var quary = serchInput.value
+    var quary = searchInput.value
     console.log(quary)
   }
 
