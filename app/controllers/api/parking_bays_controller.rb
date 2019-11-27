@@ -7,8 +7,9 @@ class Api::ParkingBaysController < ApplicationController
           bay[:marker_id] = record.marker_id unless !record.marker_id
           bay[:the_geom] = record.the_geom.map do | point |
             point.map do | num |
+              # Shaving resolution down 6 decimals(i.e. 10cm) according to Bing Maps
               num.round(6)
-            end
+            end 
           end
           bay
         end
