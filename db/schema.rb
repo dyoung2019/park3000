@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_035330) do
+ActiveRecord::Schema.define(version: 2019_11_27_034934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,10 +20,9 @@ ActiveRecord::Schema.define(version: 2019_11_26_035330) do
     t.json "the_geom"
     t.string "rd_seg_id"
     t.string "rd_seg_dsc"
-    t.bigint "pay_stay_zone_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["pay_stay_zone_id"], name: "index_parking_bays_on_pay_stay_zone_id"
+    t.text "marker_id"
   end
 
   create_table "parking_restrictions", force: :cascade do |t|
@@ -33,19 +32,18 @@ ActiveRecord::Schema.define(version: 2019_11_26_035330) do
     t.time "end_time"
     t.integer "maximum_stay"
     t.integer "cost_per_hour"
+    t.bigint "pay_stay_zone_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["pay_stay_zone_id"], name: "index_parking_restrictions_on_pay_stay_zone_id"
   end
 
   create_table "pay_stay_zones", force: :cascade do |t|
     t.string "pay_stay_zone"
     t.string "rd_seg_id"
-    t.bigint "parking_restriction_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["parking_restriction_id"], name: "index_pay_stay_zones_on_parking_restriction_id"
   end
 
-  add_foreign_key "parking_bays", "pay_stay_zones"
-  add_foreign_key "pay_stay_zones", "parking_restrictions"
+  add_foreign_key "parking_restrictions", "pay_stay_zones"
 end
