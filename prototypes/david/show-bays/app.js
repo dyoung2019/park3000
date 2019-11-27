@@ -37,6 +37,22 @@ var getMap = () => {
   mapObject = map
 }
 
+var bayLookup = {}
+var loadBayGeometries = () => {
+  // "Clarendon Street between Grey Street and Albert Street"
+  bayLookup['2234N'] = {
+    marker_id: '2234N',
+    the_geom: [
+        // long, lat
+        [144.96048178479543,  -37.81610776327627],
+        [144.9604894137553,   -37.81612473568111],
+        [144.960434430434,    -37.81614028921013],
+        [144.96042683584596,  -37.816123306583194],
+        [144.96048178479543,  -37.81610776327627]
+    ]
+  };
+}
+
 var updateParkingBaysOnMap = () => { 
 
   // GUARD CLAUSE for use Bing Maps JS classes
@@ -70,6 +86,7 @@ var updateParkingBaysOnMap = () => {
       {
         title: sensor.st_marker_id,
         text: pinStatus,
+        subTitle: sensor.bay_id,
         color: pinColor
       })
     mapObject.entities.add(pin)
@@ -81,11 +98,84 @@ var updateParkingBaysOnMap = () => {
     handleOnRefresh()
   }
 
+  var shaveDecimalPlacesOnCoords = (point, maxDecimalPlaces)  => {
+    return [
+      Number(point[0].toFixed(maxDecimalPlaces)),
+      Number(point[1].toFixed(maxDecimalPlaces))
+    ]
+  }
+  
+  var drawBay = sensor => {
+    
+    var found = bayLookup[sensor.st_marker_id]
+    if (found !== undefined) {
+      console.log('found work')
+      drawPin(sensor)
+      var parkingGeom = found.the_geom
+      
+      console.log(`CENTER: (${sensor.lat}, ${sensor.lon})`)
+
+      var corners = parkingGeom.map(point => {
+        var coord = shaveDecimalPlacesOnCoords(point, 10)
+        var latitude = coord[1]
+        var longitude = coord[0]
+        return new Microsoft.Maps.Location(latitude, longitude)
+      })
+      
+      // console.log(corners)
+      
+      //Create a polygon
+      var polygon = new Microsoft.Maps.Polygon(corners, {
+          fillColor: 'rgba(0, 255, 0, 0.5)',
+          strokeColor: 'red',
+          strokeThickness: 2
+      })
+
+      //Add the polygon to map
+      mapObject.entities.push(polygon)      
+    // corners.forEach((corner, i) => {
+    //   var title = `${i}: (${corner.latitude}, ${corner.longitude})`
+    //   console.log(title)
+    //   var pin = new Microsoft.Maps.Pushpin(corner, 
+    //     {
+    //       title: title,
+    //       text: i.toString(),
+    //     }
+    //   )
+    //   mapObject.entities.add(pin)
+    // })
+    // var center = new Microsoft.Maps.Location(sensor.lat, sensor.lon);
+
+    // var exteriorRing = [
+    //     center,
+    //     new Microsoft.Maps.Location(center.latitude - 0.1, center.longitude - 0.5),
+    //     new Microsoft.Maps.Location(center.latitude - 0.1, center.longitude + 0.5),
+    //     center
+    // ];
+
+    // //Create a polygon
+    // var polygon = new Microsoft.Maps.Polygon(exteriorRing, {
+    //     fillColor: 'rgba(0, 255, 0, 0.5)',
+    //     strokeColor: 'red',
+    //     strokeThickness: 2
+    // });
+
+    //Add the polygon to map
+    // mapObject.entities.push(polygon);
+    }
+  }
+
+  var drawBaysOnMap = () => {
+    sensorData.forEach(drawBay)
+    handleOnRefresh()
+  }
+
   var handleResponse = (resp) => {
     sensorData = resp
     console.log(sensorData)
 
-    drawPinsOnMap()
+    // drawPinsOnMap()
+    drawBaysOnMap()
   }  
 
   var fetchParkingSensorData = () => {
@@ -120,17 +210,18 @@ var handleOnRefresh = () => {
 var updateInterval = 120000; // 2 mins
 // var updateInterval = 60000; // 1 min
 
-var intervalID = setInterval(updateParkingBaysOnMap, updateInterval)
+// var intervalID = setInterval(updateParkingBaysOnMap, updateInterval)
 
 // MANUALLY CLICK TO REFRESH
-// refreshOffBtn.addEventListener('click', handleInterval)
+refreshOffBtn.addEventListener('click', updateParkingBaysOnMap)
 
-var handleClick = () =>  {
-  // SWITCH OFF AUTO REFRESH
-  clearInterval(intervalID)
-}
+// var handleClick = () =>  {
+//   // SWITCH OFF AUTO REFRESH
+//   clearInterval(intervalID)
+// }
 
-refreshOffBtn.addEventListener('click', handleClick)
+// refreshOffBtn.addEventListener('click', handleClick)
 
 // ON SCRIPT LOAD
 loadApiKeys()
+loadBayGeometries()
