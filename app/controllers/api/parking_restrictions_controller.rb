@@ -1,7 +1,6 @@
 class Api::ParkingRestrictionsController < ApplicationController
-
     def index
-        render json: {}
+        restrictions = ParkingRestriction.all
+        render json: restrictions
     end
-
 end
