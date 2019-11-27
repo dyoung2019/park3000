@@ -7,6 +7,7 @@ class CreateParkingRestrictions < ActiveRecord::Migration[6.0]
       t.time :end_time
       t.integer :maximum_stay
       t.integer :cost_per_hour
+      t.references :pay_stay_zone, null: false, foreign_key: true
 
       t.timestamps
     end

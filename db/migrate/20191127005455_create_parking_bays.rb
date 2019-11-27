@@ -8,7 +8,6 @@ class CreateParkingBays < ActiveRecord::Migration[6.0]
       t.references :pay_stay_zone, null: false, foreign_key: true
 
       t.timestamps
-      
     end
   end
 end
