@@ -4,8 +4,11 @@ Rails.application.routes.draw do
   resources :pay_stay_zones
   # get '/api/PayStayZones/' 
   resources :parking_bays
-  # get '/api/ParkingBays/'
-  
-  # get '/', to:'layouts#application' 
+  resources :parking_map
+
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get '/', to: 'parking_map#index'
+
 end
 

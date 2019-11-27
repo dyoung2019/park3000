@@ -13,3 +13,171 @@
  *= require_tree .
  *= require_self
  */
+
+ main {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: bisque;
+}
+
+.map {
+  position: relative;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background-color: cornflowerblue;
+}
+
+.search-bar {
+  position: absolute;
+  z-index: 0;
+  margin: 20px;
+  width: auto;
+  height:auto;
+  background-color: blueviolet;
+  display: flex;
+  justify-content: space-between;
+  padding:3px 3px 3px 3px;
+  border-radius: 5px;
+}
+.menu-btn{
+  cursor: pointer;
+  height: 20px;
+  width: auto;
+  background-color: transparent;
+  border: transparent;
+  display: block;
+
+}
+.search-input{
+  height: 20px;
+}
+
+.fa {
+  display: inline-block;
+  font-size: 15px;
+}
+
+.about {
+  position: absolute;
+  z-index: 1;
+  margin: 10px;
+  padding:3px 3px 3px 3px;
+  border-radius: 8px;
+  cursor: pointer;
+  left: 0px;
+  bottom: 0px;
+  background-color: cyan;
+}
+.model {
+  position: absolute;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(93, 94, 95, 0.47);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.active {
+  z-index: 0;
+}
+.about-box {
+  width: 40vw;
+  height: 40vh;
+  background-color: white;
+  border-radius: 10px;
+}
+.about-close{
+  display: flex;
+  justify-content:flex-end;
+}
+
+.about-close-btn{
+  cursor: pointer;
+  height: 20px;
+  width: auto;
+  background-color: transparent;
+  border: transparent;
+}
+.about-text {
+  padding:3px 10px 3px 10px;
+}
+
+.menu {
+  position: absolute;
+  z-index: 0;
+  margin-left: 20px;
+  margin-top: 60px;
+  width: 0px;
+  background-color:blue;
+  padding:3px 0px 3px 0px;
+  border-radius: 5px;
+  transition: width 0s;
+}
+.active1 {
+  width: 100px;
+}
+
+.container {
+  display: none;
+  position: relative;
+  padding-left: 22px;
+  margin: 6px auto 6px 6px;
+  cursor: pointer;
+  font-size: 15px;
+  /* user-select: none; */
+  /* transition-delay: 5s; */
+  /* transition: opacity 4s ease-out;
+  opacity: 0; */
+}
+.active2 {
+  display: block;
+  /* opacity: 1; */
+}
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background-color: #eee;
+}
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
