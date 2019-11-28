@@ -16,22 +16,29 @@
 
  main {
   display: flex;
+  /* z-index: -3; */
   width: 100vw;
   height: 100vh;
-  background-color: bisque;
+  /* background-color: bisque; */
 }
 
 .map {
   position: relative;
-  z-index: -1;
+  /* z-index: ; */
   width: 100vw;
   height: 100vh;
   background-color: cornflowerblue;
 }
+#myMap {
+  /* position: relative; */
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
 
 .search-bar {
   position: absolute;
-  z-index: 0;
+  z-index: 2;
   margin: 20px;
   width: auto;
   height:auto;
@@ -61,7 +68,7 @@
 
 .about {
   position: absolute;
-  z-index: 1;
+  z-index: 4;
   margin: 10px;
   padding:3px 3px 3px 3px;
   border-radius: 8px;
@@ -81,7 +88,7 @@
   align-items: center;
 }
 .active {
-  z-index: 0;
+  z-index: 3;
 }
 .about-box {
   width: 40vw;
@@ -105,19 +112,20 @@
   padding:3px 10px 3px 10px;
 }
 
-.menu {
+.menu-list {
   position: absolute;
-  z-index: 0;
+  z-index: -2;
   margin-left: 20px;
   margin-top: 60px;
-  width: 0px;
+  width: 100px;
   background-color:blue;
   padding:3px 0px 3px 0px;
   border-radius: 5px;
-  transition: width 0s;
+  /* transition: width 0s; */
 }
 .active1 {
-  width: 100px;
+  /* width: 100px; */
+  z-index: 2;
 }
 
 .container {
