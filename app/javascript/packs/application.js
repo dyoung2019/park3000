@@ -155,11 +155,11 @@ window.addEventListener('load', () => {
 
       if (currentDay === ruleDay) {
         if (currentTime > startTime && currentTime < endTime) {
-          console.log('You need to pay')
-          console.log(rulePayStayZone)
+          // console.log('You need to pay')
+          // console.log(rulePayStayZone)
         } else {
-          console.log('Free time')
-          console.log(rulePayStayZone)
+          // console.log('Free time')
+          // console.log(rulePayStayZone)
         }
       }
     }
@@ -273,6 +273,32 @@ var unoccupiedBayStyle = {
   strokeThickness: 2
 } 
 
+// BAY STYLES
+
+var noMarkerIDStyle = {
+  fillColor: 'rgba(180, 180, 180, 0.5)',
+  strokeColor: 'black',
+  strokeThickness: 1
+}
+
+var sensorNotFoundStyle = {
+  fillColor: 'rgba(180, 180, 180, 0.5)',
+  strokeColor: 'black',
+  strokeThickness: 1
+}
+
+var occupiedBayStyle = {
+  fillColor: 'rgba(255, 0, 255, 0.5)',
+  strokeColor: 'rgba(255, 0, 255, 0.75)',
+  strokeThickness: 1
+}
+
+var unoccupiedBayStyle = {
+  fillColor: 'rgba(0, 255, 0, 0.5)',
+  strokeColor: 'rgba(0, 255, 0, 0.75)',
+  strokeThickness: 2
+} 
+
 // // GLOBAL JS VARIABLES
 var sensorRequestLimit = 5000
 var apiKeys = {}
@@ -310,6 +336,7 @@ var getMap = () => {
       zoom: 16
     }
   );
+<<<<<<< HEAD
   //autosuggest class
   Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
     var manager = new Microsoft.Maps.AutosuggestManager({ map: map });
@@ -321,8 +348,95 @@ var getMap = () => {
       var pushpin = mapObject.entities.get(i);
       if (pushpin instanceof Microsoft.Maps.Pushpin) {
         mapObject.entities.removeAt(i);
+=======
+  mapObject = map
+}
+
+var shaveDecimalPlacesOnCoords = (point, maxDecimalPlaces)  => {
+  return [
+    Number(point[0].toFixed(maxDecimalPlaces)),
+    Number(point[1].toFixed(maxDecimalPlaces))
+  ]
+}
+
+var convertPointToLocation = point => {
+  var coord = shaveDecimalPlacesOnCoords(point, 6)
+  var latitude = coord[1]
+  var longitude = coord[0]
+  return new Microsoft.Maps.Location(latitude, longitude)
+}
+
+var parkingBays = []
+var preloadBaysIntoClient = () => {
+  var apiParkingBaysEndpoint = '/api/ParkingBays'
+
+  var storeBays = resp => {
+    var records = resp
+    records.forEach(record => {
+      var bay = {
+        marker_id: record.marker_id,
+        rd_seg_id: record.rd_seg_id,
+        points: record.the_geom.map(convertPointToLocation)
+      }
+
+      parkingBays.push(bay)
+    })
+  }
+
+  var getAllParkingBays = () => {
+    var options = {
+      url: apiParkingBaysEndpoint
+    }
+
+    $.ajax(options).done(storeBays)
+  }
+
+  getAllParkingBays()
+}
+
+var parkingSensorLookup = {}
+var updateParkingSensorLookup = (callback) => {
+  // melbourne sensor data url
+  var sensorEndpointURL = 'https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json'
+
+  var extractLocation = record => {
+    return [Number(record.lon), Number(record.lat)]
+  }
+
+  var handleParkingSensorsResponse = resp => {
+    // 1. put them into a sensor data lookup (=sensorLookup) by st_marker_id  
+    var records = resp
+    
+    records.forEach(record => {
+      var key = record.st_marker_id
+      var value = record.status === 'Present'
+      var point = extractLocation(record)
+      // debugger
+      parkingSensorLookup[key] = { 
+        marker_id: key,
+        location: convertPointToLocation(point),
+        isOccupied: value 
+      }
+    })
+    callback()
+  }
+
+  var loadParkingSensorData = () => {
+    // 1. load via ajax of sensor data to url for sensor data
+    // 2. once, run callback __buildSensorLookup__  
+    
+    var offset = 0
+
+    var options = {
+      url: sensorEndpointURL,
+      data: {
+        "$limit" : sensorRequestLimit,
+        "$offset": offset,
+>>>>>>> massive changes; draw bays on landing page
       }
     }
+
+    $.ajax(options).done(handleParkingSensorsResponse)
   }
 
   function suggestionSelected(result) {
@@ -491,6 +605,32 @@ var drawOccupiedOverlayOntoMap = () => {
         }
       }
     }
+<<<<<<< HEAD
+  }
+
+  var removeAllEntitiesFromMap = () => {
+    var length = mapObject.entities.getLength()
+    for (var i = length - 1; i >= 0; i--) {
+      var pushpin = mapObject.entities.get(i);
+      if (pushpin instanceof Microsoft.Maps.Pushpin) {
+        mapObject.entities.removeAt(i);
+      }
+    }
+    noOfBayPolygons = 0
+  }
+
+  var drawAllPins = () => {
+    for(var key in parkingSensorLookup) {
+      drawPin(parkingSensorLookup[key])
+    }
+  }
+
+  var drawAllParkingBays = () => {
+    parkingBays.forEach(drawParkingBayWithSensor)
+
+    if (showPinsOnOccupiedOverlay) {
+      drawAllPins()
+=======
   }
 
   var removeAllEntitiesFromMap = () => {
@@ -523,8 +663,20 @@ var drawOccupiedOverlayOntoMap = () => {
     if (!mapControlLoaded) {
       console.log('map object not loaded')
       return
+>>>>>>> massive changes; draw bays on landing page
+    }
+  }
+
+<<<<<<< HEAD
+  var showOccupiedBaysOnMap = () => {
+    // GUARD CLAUSE for use Bing Maps JS classes
+    if (!mapControlLoaded) {
+      console.log('map object not loaded')
+      return
     }
 
+=======
+>>>>>>> massive changes; draw bays on landing page
     // TODO: draw polys
     removeAllEntitiesFromMap()
     drawAllParkingBays()
