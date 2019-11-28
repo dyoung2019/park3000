@@ -119,14 +119,37 @@ window.addEventListener('load', () => {
   containerInput[2].addEventListener('click',threeChecked)
   searchForm.addEventListener('submit', handleForm)
 
+  var date = new Date();
+  var currentDay = date.getDay();
+  var currentTime = date.getHours()+date.getMinutes()/60
+  // var currentTime = 22.00
 
+  var testid = [{"marker_id":"13699W","rd_seg_id":"23033","the_geom":[[144.945916,-37.819776],[144.945929,-37.81983],[144.945904,-37.819834],[144.945895,-37.8198],[144.94589,-37.81978],[144.945916,-37.819776]]},{"marker_id":"1369W","rd_seg_id":"20186","the_geom":[[144.956913,-37.813094],[144.956893,-37.8131],[144.95687,-37.813049],[144.95689,-37.813044],[144.956913,-37.813094]]},{"rd_seg_id":"21860","the_geom":[[144.983597,-37.81075],[144.983606,-37.810695],[144.983632,-37.810697],[144.983623,-37.810753],[144.983597,-37.81075]]},{"rd_seg_id":"21994","the_geom":[[144.989358,-37.818099],[144.989337,-37.818097],[144.989345,-37.818047],[144.989367,-37.818049],[144.989358,-37.818099]]}]
+
+  var rulePayStayZone 
   var parkingRule = (resp) => {
     var parkingRestrictionArray = resp
-    console.log(parkingRestrictionArray[0]["pay_stay_zone"])
+   
+    for (var i = 0; i < parkingRestrictionArray.length; i++){
+      rulePayStayZone = parkingRestrictionArray[i]["pay_stay_zone"]
+      var ruleDay = parkingRestrictionArray[i]["day_of_week"]-1
+      var startTime = Number(parkingRestrictionArray[i]["start_time"].slice(11,13).toString()) + Number(parkingRestrictionArray[i]["start_time"].slice(14,16).toString())/60
+      var endTime = Number(parkingRestrictionArray[i]["end_time"].slice(11,13).toString()) + Number(parkingRestrictionArray[i]["end_time"].slice(14,16).toString())/60
+
+      if (currentDay === ruleDay) {
+        if (currentTime > startTime && currentTime < endTime) {
+          console.log('You need to pay')
+          console.log(rulePayStayZone)
+        } else {
+          console.log('Free time')
+          console.log(rulePayStayZone)
+        }
+      }
+    }
+
   }
-
-
-  
+ 
+    
   var parkingRestriction = () => {
     var optionsSearch = {
       url: `/api/ParkingRestrictions`,
@@ -138,8 +161,29 @@ window.addEventListener('load', () => {
     
   }
   parkingRestriction()
+
+
+ var payZoneToRdSegId = (resp) => {
+
+ }
+
+  var payStayZoneAndRdSegId = () => {
+    var optionsSearch = {
+      url: `/api/PayStayZones/`,
+      method: "get"   // default post  patch delete
+    }
+    $.ajax(optionsSearch).done(function(resp){
+      payZoneToRdSegId(resp)
+    })
+  }
+  payStayZoneAndRdSegId()
   
 
+
+
+
+
+  
 
 })
 
