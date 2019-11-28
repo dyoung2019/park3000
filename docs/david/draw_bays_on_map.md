@@ -22,7 +22,7 @@ var preloadBaysIntoClient = () => {
   getAllParkingBays()
 }
 
-var handleInterval = () => {
+var loadSensorData = () => {
   var buildSensorLookup = (resp) => {
     lookup = {}
     showOccupiedBaysOnMap(lookup)
