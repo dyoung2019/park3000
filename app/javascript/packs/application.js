@@ -19,8 +19,7 @@ require("channels")
 
 window.addEventListener('load', () => {
 
-
-  var about = document.querySelector('.about') 
+  var about = document.querySelector('.about')
   var aboutBtn = document.querySelector('.about-close-btn')
   var model = document.querySelector('.model')
   var menuBtn = document.querySelector('.menu-btn')
@@ -31,8 +30,8 @@ window.addEventListener('load', () => {
   var searchInput = document.querySelector('.search-input')
   var map = document.querySelector('body')
 
-  
-  
+
+
   // var msMap = document.querySelector('.MicrosoftMap')
   // var noKey = () => {
   //   for (var i = 0; i < 3; i++) {
@@ -63,7 +62,6 @@ window.addEventListener('load', () => {
   // map.addEventListener('mousemove', msDown)
 
 
-
   var openAbout = () => {
     if (model.classList[1] === 'active') {
       model.classList.remove('active')
@@ -71,112 +69,130 @@ window.addEventListener('load', () => {
       model.classList.add('active')
     }
   }
-  
+
   var openMenu = () => {
     console.log('menu')
     if (menuList.classList[1] === 'active1') {
       menuList.classList.remove('active1')
-      container.forEach((aCont)=>{aCont.classList.remove('active2')})
+      container.forEach((aCont) => { aCont.classList.remove('active2') })
     } else {
       menuList.classList.add('active1')
-      container.forEach((aCont)=>{aCont.classList.add('active2')})
+      container.forEach((aCont) => { aCont.classList.add('active2') })
     }
   }
-  
+
   var oneChecked = () => {
-    if (containerInput[0].checked == true){
+    if (containerInput[0].checked == true) {
       console.log('hi')
     } else {
       console.log('bye')
     }
   }
   var twoChecked = () => {
-    if (containerInput[1].checked == true){
+    if (containerInput[1].checked == true) {
       console.log('2hi')
     } else {
       console.log('2bye')
     }
   }
   var threeChecked = () => {
-    if (containerInput[2].checked == true){
+    if (containerInput[2].checked == true) {
       console.log('3hi')
     } else {
       console.log('3bye')
     }
   }
-  
+
   var handleForm = (event) => {
     event.preventDefault()
     var quary = searchInput.value
-    console.log(quary)
+    // var options = {
+    //   url: `http://dev.virtualearth.net/REST/v1/Locations?query=${quary}&key=AhRiVF93i8Bg2gtWa8XJbkh8R9iEooDM7slujH4_7joXt9qScM59JUHL2udHZcco&ul=-37.818352, 144.959023`
+    // }
+
+    // var handleResponse = res => {
+    //   mapObject.entities.clear()
+
+    //   res.resourceSets[0].resources.forEach(poi => {
+    //     long = poi.geocodePoints[0].coordinates[0]
+    //     lat = poi.geocodePoints[0].coordinates[1]
+    //     name = poi.name
+    //     var pin = new Microsoft.Maps.Pushpin(
+    //       new Microsoft.Maps.Location(long, lat),
+    //       { title: `${name}` })
+    //     mapObject.entities.push(pin);
+    //     // mapObject.setView({ bounds: result.bestView })
+    //   })
+    // }
+    // jQuery.ajax(options).done(handleResponse)
   }
 
   about.addEventListener('click', openAbout)
   aboutBtn.addEventListener('click', openAbout)
   menuBtn.addEventListener('click', openMenu)
-  containerInput[0].addEventListener('click',oneChecked)  
-  containerInput[1].addEventListener('click',twoChecked)
-  containerInput[2].addEventListener('click',threeChecked)
-  searchForm.addEventListener('submit', handleForm)
+  containerInput[0].addEventListener('click', oneChecked)
+  containerInput[1].addEventListener('click', twoChecked)
+  containerInput[2].addEventListener('click', threeChecked)
 
-  // var date = new Date();
-  // var currentDay = date.getDay();
-  // var currentTime = date.getHours()+date.getMinutes()/60
-  // // var currentTime = 22.00
+  // searchForm.addEventListener('submit', handleForm)
 
-  // var testid = [{"marker_id":"13699W","rd_seg_id":"23033","the_geom":[[144.945916,-37.819776],[144.945929,-37.81983],[144.945904,-37.819834],[144.945895,-37.8198],[144.94589,-37.81978],[144.945916,-37.819776]]},{"marker_id":"1369W","rd_seg_id":"20186","the_geom":[[144.956913,-37.813094],[144.956893,-37.8131],[144.95687,-37.813049],[144.95689,-37.813044],[144.956913,-37.813094]]},{"rd_seg_id":"21860","the_geom":[[144.983597,-37.81075],[144.983606,-37.810695],[144.983632,-37.810697],[144.983623,-37.810753],[144.983597,-37.81075]]},{"rd_seg_id":"21994","the_geom":[[144.989358,-37.818099],[144.989337,-37.818097],[144.989345,-37.818047],[144.989367,-37.818049],[144.989358,-37.818099]]}]
+  var date = new Date();
+  var currentDay = date.getDay();
+  var currentTime = date.getHours() + date.getMinutes() / 60
+  // var currentTime = 22.00
 
-  // var rulePayStayZone 
-  // var parkingRule = (resp, validPayStayZone) => {
-  //   var parkingRestrictionArray = resp
-   
-  //   for (var i = 0; i < parkingRestrictionArray.length; i++){
-  //     rulePayStayZone = validPayStayZone
-  //     var ruleDay = parkingRestrictionArray[i]["day_of_week"]-1
-  //     var startTime = Number(parkingRestrictionArray[i]["start_time"].slice(11,13).toString()) + Number(parkingRestrictionArray[i]["start_time"].slice(14,16).toString())/60
-  //     var endTime = Number(parkingRestrictionArray[i]["end_time"].slice(11,13).toString()) + Number(parkingRestrictionArray[i]["end_time"].slice(14,16).toString())/60
+  var testid = [{ "marker_id": "13699W", "rd_seg_id": "23033", "the_geom": [[144.945916, -37.819776], [144.945929, -37.81983], [144.945904, -37.819834], [144.945895, -37.8198], [144.94589, -37.81978], [144.945916, -37.819776]] }, { "marker_id": "1369W", "rd_seg_id": "20186", "the_geom": [[144.956913, -37.813094], [144.956893, -37.8131], [144.95687, -37.813049], [144.95689, -37.813044], [144.956913, -37.813094]] }, { "rd_seg_id": "21860", "the_geom": [[144.983597, -37.81075], [144.983606, -37.810695], [144.983632, -37.810697], [144.983623, -37.810753], [144.983597, -37.81075]] }, { "rd_seg_id": "21994", "the_geom": [[144.989358, -37.818099], [144.989337, -37.818097], [144.989345, -37.818047], [144.989367, -37.818049], [144.989358, -37.818099]] }]
 
-  //     if (currentDay === ruleDay) {
-  //       if (currentTime > startTime && currentTime < endTime) {
-  //         console.log('You need to pay')
-  //         console.log(rulePayStayZone)
-  //       } else {
-  //         console.log('Free time')
-  //         console.log(rulePayStayZone)
-  //       }
-  //     }
-  //   }
-  // }
- 
-    
-  // var parkingRestriction = (validPayStayZone) => {
-  //   var optionsSearch = {
-  //     url: `/api/ParkingRestrictions`,
-  //     method: "get"   // default post  patch delete
-  //   }
-  //   $.ajax(optionsSearch).done(function(resp){
-  //     parkingRule(resp, validPayStayZone)
-  //   })
-    
-  // }
-  
+  var rulePayStayZone
+  var parkingRule = (resp) => {
+    var parkingRestrictionArray = resp
 
-  // var payZones = [] 
-  // var payZoneToRdSegId = (resp) => {
-  //   payZones = resp
-  //   return payZones
-  // }
+    for (var i = 0; i < parkingRestrictionArray.length; i++) {
+      rulePayStayZone = parkingRestrictionArray[i]["pay_stay_zone"]
+      var ruleDay = parkingRestrictionArray[i]["day_of_week"] - 1
+      var startTime = Number(parkingRestrictionArray[i]["start_time"].slice(11, 13).toString()) + Number(parkingRestrictionArray[i]["start_time"].slice(14, 16).toString()) / 60
+      var endTime = Number(parkingRestrictionArray[i]["end_time"].slice(11, 13).toString()) + Number(parkingRestrictionArray[i]["end_time"].slice(14, 16).toString()) / 60
 
-  // var payStayZoneAndRdSegId = () => {
-  //   var optionsSearch = {
-  //     url: `/api/PayStayZones/`,
-  //     method: "get"   // default post  patch delete
-  //   }
-  //   $.ajax(optionsSearch).done(function(resp){
-  //     test = payZoneToRdSegId(resp)
-  //   })
-  // }
-  // payStayZoneAndRdSegId()
+      if (currentDay === ruleDay) {
+        if (currentTime > startTime && currentTime < endTime) {
+          console.log('You need to pay')
+          console.log(rulePayStayZone)
+        } else {
+          console.log('Free time')
+          console.log(rulePayStayZone)
+        }
+      }
+    }
+
+  }
+
+  var parkingRestriction = () => {
+    var optionsSearch = {
+      url: `/api/ParkingRestrictions`,
+      method: "get"   // default post  patch delete
+    }
+    $.ajax(optionsSearch).done(function (resp) {
+      parkingRule(resp)
+    })
+
+  }
+  parkingRestriction()
+
+
+  var payZoneToRdSegId = (resp) => {
+
+  }
+
+  var payStayZoneAndRdSegId = () => {
+    var optionsSearch = {
+      url: `/api/PayStayZones/`,
+      method: "get"   // default post  patch delete
+    }
+    $.ajax(optionsSearch).done(function (resp) {
+      payZoneToRdSegId(resp)
+    })
+  }
+  payStayZoneAndRdSegId()
 
   // // var pass = (rd_seg_id) => {
   // //   console.log(rd_seg_id)
@@ -222,15 +238,13 @@ window.addEventListener('load', () => {
   // }
 
 
-  // parkingBay()
+
+
 
 })
 
 
-
-
-
-  // DOM ELEMENTS 
+// DOM ELEMENTS 
 // var refreshOffBtn = document.querySelector('.refresh-off-button')
 
 // // GLOBAL JS VARIABLES
@@ -258,7 +272,7 @@ var getMap = () => {
   //Add your post map load code here.
   center = new Microsoft.Maps.Location(-37.818352, 144.959023);
 
-  var map = new Microsoft.Maps.Map('.map', 
+  var map = new Microsoft.Maps.Map('.map',
     {
       // credentials: apiKeys.api_key,
       credentials: 'AhRiVF93i8Bg2gtWa8XJbkh8R9iEooDM7slujH4_7joXt9qScM59JUHL2udHZcco',
@@ -267,19 +281,12 @@ var getMap = () => {
       zoom: 16
     }
   );
-  mapObject = map
-}
+  //autosuggest class
+  Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
+    var manager = new Microsoft.Maps.AutosuggestManager({ map: map });
+    manager.attachAutosuggest('#searchBox', '#searchBoxContainer', suggestionSelected);
+  });
 
-var updateParkingBaysOnMap = () => { 
-
-  // GUARD CLAUSE for use Bing Maps JS classes
-  if (!mapControlLoaded) {
-    console.log('map object not loaded')
-    return
-  }
-
-  var sensorData = []
-  
   var removeAllPinsFromMap = () => {
     for (var i = mapObject.entities.getLength() - 1; i >= 0; i--) {
       var pushpin = mapObject.entities.get(i);
@@ -288,7 +295,38 @@ var updateParkingBaysOnMap = () => {
       }
     }
   }
-  
+
+  function suggestionSelected(result) {
+    //Remove previously selected suggestions from the map.
+    // map.entities.clear();
+    removeAllPinsFromMap()
+    //Show the suggestion as a pushpin and center map over it.
+    var pin = new Microsoft.Maps.Pushpin(result.location);
+    map.entities.push(pin);
+    map.setView({ bounds: result.bestView });
+  }
+  mapObject = map
+}
+
+var updateParkingBaysOnMap = () => {
+
+  // GUARD CLAUSE for use Bing Maps JS classes
+  if (!mapControlLoaded) {
+    console.log('map object not loaded')
+    return
+  }
+
+  var sensorData = []
+
+  var removeAllPinsFromMap = () => {
+    for (var i = mapObject.entities.getLength() - 1; i >= 0; i--) {
+      var pushpin = mapObject.entities.get(i);
+      if (pushpin instanceof Microsoft.Maps.Pushpin) {
+        mapObject.entities.removeAt(i);
+      }
+    }
+  }
+
   var drawPin = sensor => {
     var pinLocation = new Microsoft.Maps.Location(sensor.lat, sensor.lon);
 
@@ -299,7 +337,7 @@ var updateParkingBaysOnMap = () => {
       pinColor = 'magenta'
     }
 
-    var pin = new Microsoft.Maps.Pushpin(pinLocation, 
+    var pin = new Microsoft.Maps.Pushpin(pinLocation,
       {
         title: sensor.st_marker_id,
         text: pinStatus,
@@ -320,7 +358,7 @@ var updateParkingBaysOnMap = () => {
     // console.log(sensorData)
 
     drawPinsOnMap()
-  }  
+  }
 
   var fetchParkingSensorData = () => {
     var offset = 0
@@ -329,7 +367,7 @@ var updateParkingBaysOnMap = () => {
       // melbourne sensor data url
       url: `https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json`,
       data: {
-        "$limit" : 4000,
+        "$limit": 4000,
         "$offset": offset,
       }
     }
@@ -339,6 +377,7 @@ var updateParkingBaysOnMap = () => {
 
   fetchParkingSensorData()
 }
+
 
 var handleMapControlScriptLoaded = () => {
   // console.log('handle')
@@ -371,7 +410,5 @@ var intervalID = setInterval(updateParkingBaysOnMap, updateInterval)
 loadApiKeys()
 
 
-
-
 window.handleMapControlScriptLoaded = handleMapControlScriptLoaded
-// window.parkingRestriction = parkingRestriction
+
