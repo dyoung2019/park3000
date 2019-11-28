@@ -16,7 +16,7 @@ class ParkingMapController < ApplicationController
     @current_day = @current_time.wday  # => 0: Day of week: 0 is Sunday
     @current_hour = @current_time.hour
     @current_mins = (@current_time.min.to_i)/60.to_f
-    @time_for_check = 13.3
+    @time_for_check = @current_hour+@current_mins
 
    
 
@@ -68,10 +68,10 @@ class ParkingMapController < ApplicationController
   
     
 
-
-    # puts @bays.length
-    # puts @rules.length
-    # puts @zones.length
+    puts @time_for_check
+    puts @bays.length
+    puts @restrictions.length
+    puts @zones.length
     render :parking_map
   end
 
