@@ -29,6 +29,39 @@ window.addEventListener('load', () => {
   var containerInput = document.querySelectorAll('.container input')
   var searchForm = document.querySelector('.search-form')
   var searchInput = document.querySelector('.search-input')
+  var map = document.querySelector('body')
+
+  
+  
+  // var msMap = document.querySelector('.MicrosoftMap')
+  // var noKey = () => {
+  //   for (var i = 0; i < 3; i++) {
+  //   msMap.children[i].style.zIndex = -4
+  //   }
+  // }
+  // noKey()
+
+  // var nav = document.querySelector('#MicrosoftNav')
+  // var locationBtn = document.querySelector('#LocateMeButton')
+  // var zoomInBtn = document.querySelector('#ZoomInButton')
+  // var zoomOutBtn = document.querySelector('#ZoomOutButton')
+  // var navClick = ()=>{
+  //   console.log('hahaha')
+  //   setTimeout(function() { noKey(); }, 700);
+  // }
+
+
+  // var msDown = () => {
+  //   console.log('hohoho')
+  //   map.addEventListener('click', navClick)
+  // } 
+
+  // nav.addEventListener('click',navClick)
+  // locationBtn.addEventListener('click',navClick)
+  // zoomInBtn.addEventListener('click',navClick)
+  // zoomOutBtn.addEventListener('click',navClick)
+  // map.addEventListener('mousemove', msDown)
+
 
 
   var openAbout = () => {
@@ -84,8 +117,73 @@ window.addEventListener('load', () => {
   containerInput[0].addEventListener('click',oneChecked)  
   containerInput[1].addEventListener('click',twoChecked)
   containerInput[2].addEventListener('click',threeChecked)
-
   searchForm.addEventListener('submit', handleForm)
+
+  var date = new Date();
+  var currentDay = date.getDay();
+  var currentTime = date.getHours()+date.getMinutes()/60
+  // var currentTime = 22.00
+
+  var testid = [{"marker_id":"13699W","rd_seg_id":"23033","the_geom":[[144.945916,-37.819776],[144.945929,-37.81983],[144.945904,-37.819834],[144.945895,-37.8198],[144.94589,-37.81978],[144.945916,-37.819776]]},{"marker_id":"1369W","rd_seg_id":"20186","the_geom":[[144.956913,-37.813094],[144.956893,-37.8131],[144.95687,-37.813049],[144.95689,-37.813044],[144.956913,-37.813094]]},{"rd_seg_id":"21860","the_geom":[[144.983597,-37.81075],[144.983606,-37.810695],[144.983632,-37.810697],[144.983623,-37.810753],[144.983597,-37.81075]]},{"rd_seg_id":"21994","the_geom":[[144.989358,-37.818099],[144.989337,-37.818097],[144.989345,-37.818047],[144.989367,-37.818049],[144.989358,-37.818099]]}]
+
+  var rulePayStayZone 
+  var parkingRule = (resp) => {
+    var parkingRestrictionArray = resp
+   
+    for (var i = 0; i < parkingRestrictionArray.length; i++){
+      rulePayStayZone = parkingRestrictionArray[i]["pay_stay_zone"]
+      var ruleDay = parkingRestrictionArray[i]["day_of_week"]-1
+      var startTime = Number(parkingRestrictionArray[i]["start_time"].slice(11,13).toString()) + Number(parkingRestrictionArray[i]["start_time"].slice(14,16).toString())/60
+      var endTime = Number(parkingRestrictionArray[i]["end_time"].slice(11,13).toString()) + Number(parkingRestrictionArray[i]["end_time"].slice(14,16).toString())/60
+
+      if (currentDay === ruleDay) {
+        if (currentTime > startTime && currentTime < endTime) {
+          console.log('You need to pay')
+          console.log(rulePayStayZone)
+        } else {
+          console.log('Free time')
+          console.log(rulePayStayZone)
+        }
+      }
+    }
+
+  }
+ 
+    
+  var parkingRestriction = () => {
+    var optionsSearch = {
+      url: `/api/ParkingRestrictions`,
+      method: "get"   // default post  patch delete
+    }
+    $.ajax(optionsSearch).done(function(resp){
+      parkingRule(resp)
+    })
+    
+  }
+  parkingRestriction()
+
+
+ var payZoneToRdSegId = (resp) => {
+
+ }
+
+  var payStayZoneAndRdSegId = () => {
+    var optionsSearch = {
+      url: `/api/PayStayZones/`,
+      method: "get"   // default post  patch delete
+    }
+    $.ajax(optionsSearch).done(function(resp){
+      payZoneToRdSegId(resp)
+    })
+  }
+  payStayZoneAndRdSegId()
+  
+
+
+
+
+
+  
 
 })
 
@@ -123,7 +221,8 @@ var getMap = () => {
 
   var map = new Microsoft.Maps.Map('.map', 
     {
-      credentials: apiKeys.api_key,
+      // credentials: apiKeys.api_key,
+      credentials: 'AhRiVF93i8Bg2gtWa8XJbkh8R9iEooDM7slujH4_7joXt9qScM59JUHL2udHZcco',
       center: center,
       mapTypeId: Microsoft.Maps.MapTypeId.road,
       zoom: 16
@@ -174,12 +273,12 @@ var updateParkingBaysOnMap = () => {
     removeAllPinsFromMap()
     sensorData.forEach(drawPin)
     // handleOnRefresh()
-    console.log('done')
+    // console.log('done')
   }
 
   var handleResponse = (resp) => {
     sensorData = resp
-    console.log(sensorData)
+    // console.log(sensorData)
 
     drawPinsOnMap()
   }  
@@ -203,7 +302,7 @@ var updateParkingBaysOnMap = () => {
 }
 
 var handleMapControlScriptLoaded = () => {
-  console.log('handle')
+  // console.log('handle')
   getMap()
   mapControlLoaded = true
   console.log('Script for Microsoft Map Control now loaded')
@@ -232,6 +331,8 @@ var intervalID = setInterval(updateParkingBaysOnMap, updateInterval)
 // // ON SCRIPT LOAD
 loadApiKeys()
 
-console.log('end.00')
+
+
 
 window.handleMapControlScriptLoaded = handleMapControlScriptLoaded
+// window.parkingRestriction = parkingRestriction

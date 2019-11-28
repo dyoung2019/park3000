@@ -29,12 +29,6 @@
   height: 100vh;
   background-color: cornflowerblue;
 }
-#myMap {
-  /* position: relative; */
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-}
 
 .search-bar {
   position: absolute;
@@ -42,7 +36,7 @@
   margin: 20px;
   width: auto;
   height:auto;
-  background-color: blueviolet;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   padding:3px 3px 3px 3px;
@@ -59,6 +53,7 @@
 }
 .search-input{
   height: 20px;
+  border: none;
 }
 
 .fa {
@@ -68,14 +63,15 @@
 
 .about {
   position: absolute;
-  z-index: 4;
-  margin: 10px;
+  z-index: 1003;
+  margin-bottom: 31px;
+  margin-left: 5px;
   padding:3px 3px 3px 3px;
   border-radius: 8px;
   cursor: pointer;
   left: 0px;
   bottom: 0px;
-  background-color: cyan;
+  background-color: white;
 }
 .model {
   position: absolute;
@@ -88,7 +84,7 @@
   align-items: center;
 }
 .active {
-  z-index: 3;
+  z-index: 1002;
 }
 .about-box {
   width: 40vw;
@@ -118,7 +114,7 @@
   margin-left: 20px;
   margin-top: 60px;
   width: 100px;
-  background-color:blue;
+  background-color: white;
   padding:3px 0px 3px 0px;
   border-radius: 5px;
   /* transition: width 0s; */
