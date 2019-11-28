@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2019_11_27_034934) do
     t.time "end_time"
     t.integer "maximum_stay"
     t.integer "cost_per_hour"
-    t.bigint "pay_stay_zone_id", null: false
+    t.bigint "pay_stay_zone_id:", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["pay_stay_zone_id"], name: "index_parking_restrictions_on_pay_stay_zone_id"
