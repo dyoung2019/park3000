@@ -287,9 +287,19 @@ var getMap = () => {
     manager.attachAutosuggest('#searchBox', '#searchBoxContainer', suggestionSelected);
   });
 
+  var removeAllPinsFromMap = () => {
+    for (var i = mapObject.entities.getLength() - 1; i >= 0; i--) {
+      var pushpin = mapObject.entities.get(i);
+      if (pushpin instanceof Microsoft.Maps.Pushpin) {
+        mapObject.entities.removeAt(i);
+      }
+    }
+  }
+
   function suggestionSelected(result) {
     //Remove previously selected suggestions from the map.
-    map.entities.clear();
+    // map.entities.clear();
+    removeAllPinsFromMap()
     //Show the suggestion as a pushpin and center map over it.
     var pin = new Microsoft.Maps.Pushpin(result.location);
     map.entities.push(pin);
@@ -347,7 +357,7 @@ var updateParkingBaysOnMap = () => {
     sensorData = resp
     // console.log(sensorData)
 
-    // drawPinsOnMap()
+    drawPinsOnMap()
   }
 
   var fetchParkingSensorData = () => {
