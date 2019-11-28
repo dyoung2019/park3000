@@ -42,7 +42,6 @@ parking_restrictions.each do |restriction|
 end
 
 parking_bays = JSON.parse(File.read('data/parking_bays.geojson'))
-
 parking_bays["features"].each do |feature|
     p=ParkingBay.new
     p.marker_id = feature["properties"]["marker_id"]
@@ -53,3 +52,5 @@ parking_bays["features"].each do |feature|
     p.rd_seg_dsc= feature["properties"]["rd_seg_dsc"]
     p.save
 end
+
+
