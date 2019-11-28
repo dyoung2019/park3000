@@ -30,8 +30,8 @@ window.addEventListener('load', () => {
   var searchInput = document.querySelector('.search-input')
   var map = document.querySelector('body')
 
-  
-  
+
+
   // var msMap = document.querySelector('.MicrosoftMap')
   // var noKey = () => {
   //   for (var i = 0; i < 3; i++) {
@@ -60,7 +60,6 @@ window.addEventListener('load', () => {
   // zoomInBtn.addEventListener('click',navClick)
   // zoomOutBtn.addEventListener('click',navClick)
   // map.addEventListener('mousemove', msDown)
-
 
 
   var openAbout = () => {
@@ -107,20 +106,25 @@ window.addEventListener('load', () => {
   var handleForm = (event) => {
     event.preventDefault()
     var quary = searchInput.value
-    var options = {
-      url: `http://dev.virtualearth.net/REST/v1/Locations?query=${quary}&key=AhRiVF93i8Bg2gtWa8XJbkh8R9iEooDM7slujH4_7joXt9qScM59JUHL2udHZcco&ul=-37.818352, 144.959023`
-    }
+    // var options = {
+    //   url: `http://dev.virtualearth.net/REST/v1/Locations?query=${quary}&key=AhRiVF93i8Bg2gtWa8XJbkh8R9iEooDM7slujH4_7joXt9qScM59JUHL2udHZcco&ul=-37.818352, 144.959023`
+    // }
 
-    var handleResponse = res => {
-     res.resourceSets[0].resources.forEach(poi => {
-       lat = poi.geocodePoints[0].coordinates[0]
-       long = poi.geocodePoints[0].coordinates[1]
-       name = "hh"
-       var pin = new Microsoft.Maps.Pushpin(lat,long {title: `${name}`})
-       mapObject.entities.push(pin);
-     })
-    }
-    jQuery.ajax(options).done(handleResponse)
+    // var handleResponse = res => {
+    //   mapObject.entities.clear()
+
+    //   res.resourceSets[0].resources.forEach(poi => {
+    //     long = poi.geocodePoints[0].coordinates[0]
+    //     lat = poi.geocodePoints[0].coordinates[1]
+    //     name = poi.name
+    //     var pin = new Microsoft.Maps.Pushpin(
+    //       new Microsoft.Maps.Location(long, lat),
+    //       { title: `${name}` })
+    //     mapObject.entities.push(pin);
+    //     // mapObject.setView({ bounds: result.bestView })
+    //   })
+    // }
+    // jQuery.ajax(options).done(handleResponse)
   }
 
   about.addEventListener('click', openAbout)
@@ -130,66 +134,65 @@ window.addEventListener('load', () => {
   containerInput[1].addEventListener('click', twoChecked)
   containerInput[2].addEventListener('click', threeChecked)
 
-  searchForm.addEventListener('submit', handleForm)
+  // searchForm.addEventListener('submit', handleForm)
 
-  // var date = new Date();
-  // var currentDay = date.getDay();
-  // var currentTime = date.getHours()+date.getMinutes()/60
-  // // var currentTime = 22.00
+  var date = new Date();
+  var currentDay = date.getDay();
+  var currentTime = date.getHours() + date.getMinutes() / 60
+  // var currentTime = 22.00
 
-  // var testid = [{"marker_id":"13699W","rd_seg_id":"23033","the_geom":[[144.945916,-37.819776],[144.945929,-37.81983],[144.945904,-37.819834],[144.945895,-37.8198],[144.94589,-37.81978],[144.945916,-37.819776]]},{"marker_id":"1369W","rd_seg_id":"20186","the_geom":[[144.956913,-37.813094],[144.956893,-37.8131],[144.95687,-37.813049],[144.95689,-37.813044],[144.956913,-37.813094]]},{"rd_seg_id":"21860","the_geom":[[144.983597,-37.81075],[144.983606,-37.810695],[144.983632,-37.810697],[144.983623,-37.810753],[144.983597,-37.81075]]},{"rd_seg_id":"21994","the_geom":[[144.989358,-37.818099],[144.989337,-37.818097],[144.989345,-37.818047],[144.989367,-37.818049],[144.989358,-37.818099]]}]
+  var testid = [{ "marker_id": "13699W", "rd_seg_id": "23033", "the_geom": [[144.945916, -37.819776], [144.945929, -37.81983], [144.945904, -37.819834], [144.945895, -37.8198], [144.94589, -37.81978], [144.945916, -37.819776]] }, { "marker_id": "1369W", "rd_seg_id": "20186", "the_geom": [[144.956913, -37.813094], [144.956893, -37.8131], [144.95687, -37.813049], [144.95689, -37.813044], [144.956913, -37.813094]] }, { "rd_seg_id": "21860", "the_geom": [[144.983597, -37.81075], [144.983606, -37.810695], [144.983632, -37.810697], [144.983623, -37.810753], [144.983597, -37.81075]] }, { "rd_seg_id": "21994", "the_geom": [[144.989358, -37.818099], [144.989337, -37.818097], [144.989345, -37.818047], [144.989367, -37.818049], [144.989358, -37.818099]] }]
 
-  // var rulePayStayZone 
-  // var parkingRule = (resp, validPayStayZone) => {
-  //   var parkingRestrictionArray = resp
-   
-  //   for (var i = 0; i < parkingRestrictionArray.length; i++){
-  //     rulePayStayZone = validPayStayZone
-  //     var ruleDay = parkingRestrictionArray[i]["day_of_week"]-1
-  //     var startTime = Number(parkingRestrictionArray[i]["start_time"].slice(11,13).toString()) + Number(parkingRestrictionArray[i]["start_time"].slice(14,16).toString())/60
-  //     var endTime = Number(parkingRestrictionArray[i]["end_time"].slice(11,13).toString()) + Number(parkingRestrictionArray[i]["end_time"].slice(14,16).toString())/60
+  var rulePayStayZone
+  var parkingRule = (resp) => {
+    var parkingRestrictionArray = resp
 
-  //     if (currentDay === ruleDay) {
-  //       if (currentTime > startTime && currentTime < endTime) {
-  //         console.log('You need to pay')
-  //         console.log(rulePayStayZone)
-  //       } else {
-  //         console.log('Free time')
-  //         console.log(rulePayStayZone)
-  //       }
-  //     }
-  //   }
-  // }
- 
-    
-  // var parkingRestriction = (validPayStayZone) => {
-  //   var optionsSearch = {
-  //     url: `/api/ParkingRestrictions`,
-  //     method: "get"   // default post  patch delete
-  //   }
-  //   $.ajax(optionsSearch).done(function(resp){
-  //     parkingRule(resp, validPayStayZone)
-  //   })
-    
-  // }
-  
+    for (var i = 0; i < parkingRestrictionArray.length; i++) {
+      rulePayStayZone = parkingRestrictionArray[i]["pay_stay_zone"]
+      var ruleDay = parkingRestrictionArray[i]["day_of_week"] - 1
+      var startTime = Number(parkingRestrictionArray[i]["start_time"].slice(11, 13).toString()) + Number(parkingRestrictionArray[i]["start_time"].slice(14, 16).toString()) / 60
+      var endTime = Number(parkingRestrictionArray[i]["end_time"].slice(11, 13).toString()) + Number(parkingRestrictionArray[i]["end_time"].slice(14, 16).toString()) / 60
 
-  // var payZones = [] 
-  // var payZoneToRdSegId = (resp) => {
-  //   payZones = resp
-  //   return payZones
-  // }
+      if (currentDay === ruleDay) {
+        if (currentTime > startTime && currentTime < endTime) {
+          console.log('You need to pay')
+          console.log(rulePayStayZone)
+        } else {
+          console.log('Free time')
+          console.log(rulePayStayZone)
+        }
+      }
+    }
 
-  // var payStayZoneAndRdSegId = () => {
-  //   var optionsSearch = {
-  //     url: `/api/PayStayZones/`,
-  //     method: "get"   // default post  patch delete
-  //   }
-  //   $.ajax(optionsSearch).done(function(resp){
-  //     test = payZoneToRdSegId(resp)
-  //   })
-  // }
-  // payStayZoneAndRdSegId()
+  }
+
+  var parkingRestriction = () => {
+    var optionsSearch = {
+      url: `/api/ParkingRestrictions`,
+      method: "get"   // default post  patch delete
+    }
+    $.ajax(optionsSearch).done(function (resp) {
+      parkingRule(resp)
+    })
+
+  }
+  parkingRestriction()
+
+
+  var payZoneToRdSegId = (resp) => {
+
+  }
+
+  var payStayZoneAndRdSegId = () => {
+    var optionsSearch = {
+      url: `/api/PayStayZones/`,
+      method: "get"   // default post  patch delete
+    }
+    $.ajax(optionsSearch).done(function (resp) {
+      payZoneToRdSegId(resp)
+    })
+  }
+  payStayZoneAndRdSegId()
 
   // // var pass = (rd_seg_id) => {
   // //   console.log(rd_seg_id)
@@ -235,7 +238,8 @@ window.addEventListener('load', () => {
   // }
 
 
-  // parkingBay()
+
+
 
 })
 
@@ -277,6 +281,20 @@ var getMap = () => {
       zoom: 16
     }
   );
+  //autosuggest class
+  Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
+    var manager = new Microsoft.Maps.AutosuggestManager({ map: map });
+    manager.attachAutosuggest('#searchBox', '#searchBoxContainer', suggestionSelected);
+  });
+
+  function suggestionSelected(result) {
+    //Remove previously selected suggestions from the map.
+    map.entities.clear();
+    //Show the suggestion as a pushpin and center map over it.
+    var pin = new Microsoft.Maps.Pushpin(result.location);
+    map.entities.push(pin);
+    map.setView({ bounds: result.bestView });
+  }
   mapObject = map
 }
 
