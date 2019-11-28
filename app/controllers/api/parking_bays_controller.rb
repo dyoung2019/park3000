@@ -1,10 +1,11 @@
 class Api::ParkingBaysController < ApplicationController
     def get_smaller_set()
-        records = ParkingBay.select(:marker_id).select(:the_geom).all
+        records = ParkingBay.select(:marker_id).select(:rd_seg_id).select(:the_geom).all
 
         bays = records.map do | record |
           bay = {}
           bay[:marker_id] = record.marker_id unless !record.marker_id
+          bay[:rd_seg_id] = record.rd_seg_id unless !record.rd_seg_id
           bay[:the_geom] = record.the_geom.map do | point |
             point.map do | num |
               # Shaving resolution down 6 decimals(i.e. 10cm) according to Bing Maps

@@ -17,7 +17,6 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 
-
 window.addEventListener('load', () => {
 
 
