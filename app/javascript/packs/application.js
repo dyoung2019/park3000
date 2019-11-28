@@ -19,8 +19,7 @@ require("channels")
 
 window.addEventListener('load', () => {
 
-
-  var about = document.querySelector('.about') 
+  var about = document.querySelector('.about')
   var aboutBtn = document.querySelector('.about-close-btn')
   var model = document.querySelector('.model')
   var menuBtn = document.querySelector('.menu-btn')
@@ -71,52 +70,66 @@ window.addEventListener('load', () => {
       model.classList.add('active')
     }
   }
-  
+
   var openMenu = () => {
     console.log('menu')
     if (menuList.classList[1] === 'active1') {
       menuList.classList.remove('active1')
-      container.forEach((aCont)=>{aCont.classList.remove('active2')})
+      container.forEach((aCont) => { aCont.classList.remove('active2') })
     } else {
       menuList.classList.add('active1')
-      container.forEach((aCont)=>{aCont.classList.add('active2')})
+      container.forEach((aCont) => { aCont.classList.add('active2') })
     }
   }
-  
+
   var oneChecked = () => {
-    if (containerInput[0].checked == true){
+    if (containerInput[0].checked == true) {
       console.log('hi')
     } else {
       console.log('bye')
     }
   }
   var twoChecked = () => {
-    if (containerInput[1].checked == true){
+    if (containerInput[1].checked == true) {
       console.log('2hi')
     } else {
       console.log('2bye')
     }
   }
   var threeChecked = () => {
-    if (containerInput[2].checked == true){
+    if (containerInput[2].checked == true) {
       console.log('3hi')
     } else {
       console.log('3bye')
     }
   }
-  
+
   var handleForm = (event) => {
     event.preventDefault()
     var quary = searchInput.value
-    console.log(quary)
+    var options = {
+      url: `http://dev.virtualearth.net/REST/v1/Locations?query=${quary}&key=AhRiVF93i8Bg2gtWa8XJbkh8R9iEooDM7slujH4_7joXt9qScM59JUHL2udHZcco&ul=-37.818352, 144.959023`
+    }
+
+    var handleResponse = res => {
+     res.resourceSets[0].resources.forEach(poi => {
+       lat = poi.geocodePoints[0].coordinates[0]
+       long = poi.geocodePoints[0].coordinates[1]
+       name = "hh"
+       var pin = new Microsoft.Maps.Pushpin(lat,long {title: `${name}`})
+       mapObject.entities.push(pin);
+     })
+    }
+    jQuery.ajax(options).done(handleResponse)
   }
 
   about.addEventListener('click', openAbout)
   aboutBtn.addEventListener('click', openAbout)
   menuBtn.addEventListener('click', openMenu)
-  containerInput[0].addEventListener('click',oneChecked)  
-  containerInput[1].addEventListener('click',twoChecked)
-  containerInput[2].addEventListener('click',threeChecked)
+  containerInput[0].addEventListener('click', oneChecked)
+  containerInput[1].addEventListener('click', twoChecked)
+  containerInput[2].addEventListener('click', threeChecked)
+
   searchForm.addEventListener('submit', handleForm)
 
   // var date = new Date();
@@ -227,10 +240,7 @@ window.addEventListener('load', () => {
 })
 
 
-
-
-
-  // DOM ELEMENTS 
+// DOM ELEMENTS 
 // var refreshOffBtn = document.querySelector('.refresh-off-button')
 
 // // GLOBAL JS VARIABLES
@@ -258,7 +268,7 @@ var getMap = () => {
   //Add your post map load code here.
   center = new Microsoft.Maps.Location(-37.818352, 144.959023);
 
-  var map = new Microsoft.Maps.Map('.map', 
+  var map = new Microsoft.Maps.Map('.map',
     {
       // credentials: apiKeys.api_key,
       credentials: 'AhRiVF93i8Bg2gtWa8XJbkh8R9iEooDM7slujH4_7joXt9qScM59JUHL2udHZcco',
@@ -270,7 +280,7 @@ var getMap = () => {
   mapObject = map
 }
 
-var updateParkingBaysOnMap = () => { 
+var updateParkingBaysOnMap = () => {
 
   // GUARD CLAUSE for use Bing Maps JS classes
   if (!mapControlLoaded) {
@@ -279,7 +289,7 @@ var updateParkingBaysOnMap = () => {
   }
 
   var sensorData = []
-  
+
   var removeAllPinsFromMap = () => {
     for (var i = mapObject.entities.getLength() - 1; i >= 0; i--) {
       var pushpin = mapObject.entities.get(i);
@@ -288,7 +298,7 @@ var updateParkingBaysOnMap = () => {
       }
     }
   }
-  
+
   var drawPin = sensor => {
     var pinLocation = new Microsoft.Maps.Location(sensor.lat, sensor.lon);
 
@@ -299,7 +309,7 @@ var updateParkingBaysOnMap = () => {
       pinColor = 'magenta'
     }
 
-    var pin = new Microsoft.Maps.Pushpin(pinLocation, 
+    var pin = new Microsoft.Maps.Pushpin(pinLocation,
       {
         title: sensor.st_marker_id,
         text: pinStatus,
@@ -319,8 +329,8 @@ var updateParkingBaysOnMap = () => {
     sensorData = resp
     // console.log(sensorData)
 
-    drawPinsOnMap()
-  }  
+    // drawPinsOnMap()
+  }
 
   var fetchParkingSensorData = () => {
     var offset = 0
@@ -329,7 +339,7 @@ var updateParkingBaysOnMap = () => {
       // melbourne sensor data url
       url: `https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json`,
       data: {
-        "$limit" : 4000,
+        "$limit": 4000,
         "$offset": offset,
       }
     }
@@ -339,6 +349,7 @@ var updateParkingBaysOnMap = () => {
 
   fetchParkingSensorData()
 }
+
 
 var handleMapControlScriptLoaded = () => {
   // console.log('handle')
@@ -371,7 +382,5 @@ var intervalID = setInterval(updateParkingBaysOnMap, updateInterval)
 loadApiKeys()
 
 
-
-
 window.handleMapControlScriptLoaded = handleMapControlScriptLoaded
-// window.parkingRestriction = parkingRestriction
+
