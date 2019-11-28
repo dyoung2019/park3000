@@ -29,6 +29,39 @@ window.addEventListener('load', () => {
   var containerInput = document.querySelectorAll('.container input')
   var searchForm = document.querySelector('.search-form')
   var searchInput = document.querySelector('.search-input')
+  var map = document.querySelector('body')
+
+  
+  
+  // var msMap = document.querySelector('.MicrosoftMap')
+  // var noKey = () => {
+  //   for (var i = 0; i < 3; i++) {
+  //   msMap.children[i].style.zIndex = -4
+  //   }
+  // }
+  // noKey()
+
+  // var nav = document.querySelector('#MicrosoftNav')
+  // var locationBtn = document.querySelector('#LocateMeButton')
+  // var zoomInBtn = document.querySelector('#ZoomInButton')
+  // var zoomOutBtn = document.querySelector('#ZoomOutButton')
+  // var navClick = ()=>{
+  //   console.log('hahaha')
+  //   setTimeout(function() { noKey(); }, 700);
+  // }
+
+
+  // var msDown = () => {
+  //   console.log('hohoho')
+  //   map.addEventListener('click', navClick)
+  // } 
+
+  // nav.addEventListener('click',navClick)
+  // locationBtn.addEventListener('click',navClick)
+  // zoomInBtn.addEventListener('click',navClick)
+  // zoomOutBtn.addEventListener('click',navClick)
+  // map.addEventListener('mousemove', msDown)
+
 
 
   var openAbout = () => {
@@ -84,8 +117,29 @@ window.addEventListener('load', () => {
   containerInput[0].addEventListener('click',oneChecked)  
   containerInput[1].addEventListener('click',twoChecked)
   containerInput[2].addEventListener('click',threeChecked)
-
   searchForm.addEventListener('submit', handleForm)
+
+
+  var parkingRule = (resp) => {
+    var parkingRestrictionArray = resp
+    console.log(parkingRestrictionArray[0]["pay_stay_zone"])
+  }
+
+
+  
+  var parkingRestriction = () => {
+    var optionsSearch = {
+      url: `/api/ParkingRestrictions`,
+      method: "get"   // default post  patch delete
+    }
+    $.ajax(optionsSearch).done(function(resp){
+      parkingRule(resp)
+    })
+    
+  }
+  parkingRestriction()
+  
+
 
 })
 
@@ -123,7 +177,8 @@ var getMap = () => {
 
   var map = new Microsoft.Maps.Map('.map', 
     {
-      credentials: apiKeys.api_key,
+      // credentials: apiKeys.api_key,
+      credentials: 'AhRiVF93i8Bg2gtWa8XJbkh8R9iEooDM7slujH4_7joXt9qScM59JUHL2udHZcco',
       center: center,
       mapTypeId: Microsoft.Maps.MapTypeId.road,
       zoom: 16
@@ -174,12 +229,12 @@ var updateParkingBaysOnMap = () => {
     removeAllPinsFromMap()
     sensorData.forEach(drawPin)
     // handleOnRefresh()
-    console.log('done')
+    // console.log('done')
   }
 
   var handleResponse = (resp) => {
     sensorData = resp
-    console.log(sensorData)
+    // console.log(sensorData)
 
     drawPinsOnMap()
   }  
@@ -203,7 +258,7 @@ var updateParkingBaysOnMap = () => {
 }
 
 var handleMapControlScriptLoaded = () => {
-  console.log('handle')
+  // console.log('handle')
   getMap()
   mapControlLoaded = true
   console.log('Script for Microsoft Map Control now loaded')
@@ -232,6 +287,8 @@ var intervalID = setInterval(updateParkingBaysOnMap, updateInterval)
 // // ON SCRIPT LOAD
 loadApiKeys()
 
-console.log('end.00')
+
+
 
 window.handleMapControlScriptLoaded = handleMapControlScriptLoaded
+// window.parkingRestriction = parkingRestriction
