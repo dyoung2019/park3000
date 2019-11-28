@@ -480,14 +480,7 @@ var updateParkingBaysOnMap = () => {
       // console.log(corners)
       
       //Create a polygon
-      var polygon = new Microsoft.Maps.Polygon(corners, {
-          fillColor: 'rgba(0, 255, 0, 0.5)',
-          strokeColor: 'red',
-          strokeThickness: 2
-      })
-
-      //Add the polygon to map
-      mapObject.entities.push(polygon)      
+    
     // corners.forEach((corner, i) => {
     //   var title = `${i}: (${corner.latitude}, ${corner.longitude})`
     //   console.log(title)
@@ -555,7 +548,7 @@ var handleMapControlScriptLoaded = () => {
   getMap()
   mapControlLoaded = true
   console.log('Script for Microsoft Map Control now loaded')
-  updateParkingBaysOnMap()
+  // updateParkingBaysOnMap()
 }
 
 var handleOnRefresh = () => {
@@ -593,7 +586,183 @@ var loadParkingBays = () => {
 
 // ON SCRIPT LOAD
 loadApiKeys()
-loadBayGeometries()
-loadParkingBays()
+// loadBayGeometries()
+// loadParkingBays()
+
+var loadBaysOntoMap = () => {
+  // CONSTANTS 
+
+  var sensorRequestLimit = 4000
+  var sensorLookup = {}
+
+  var showParkingBaysOnMap = () => {
+    console.log('all done')
+  }
+}
+
+var parkingBays = []
+var preloadBaysIntoClient = () => {
+  var apiParkingBaysEndpoint = ''
+
+  var storeBays = resp => {
+    parkingBays = resp
+  }
+
+  var getAllParkingBays = () => {
+    var options = {
+      url: apiParkingBaysEndpoint
+    }
+
+    $.ajax(options).done(storeBays)
+  }
+
+  getAllParkingBays()
+}
+
+var parkingSensorLookup = {}
+var updateParkingSensorLookup = () => {
+  // melbourne sensor data url
+  var sensorEndpointURL = 'https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json'
+
+  var handleParkingSensorsResponse = resp => {
+    // 1. put them into a sensor data lookup (=sensorLookup) by st_marker_id  
+    var records = resp
+    
+    records.forEach(record => {
+      var key = record.st_marker_id
+      var value = record.status === 'Present'
+      sensorLookup[key] = value
+    })
+  }
+
+  var loadParkingSensorData = () => {
+    // 1. load via ajax of sensor data to url for sensor data
+    // 2. once, run callback __buildSensorLookup__  
+    
+    var offset = 0
+
+    var options = {
+      url: sensorEndpointURL,
+      data: {
+        "$limit" : sensorRequestLimit,
+        "$offset": offset,
+      }
+    }
+
+    $.ajax(options).done(handleParkingSensorsResponse)
+  }
+  
+  loadParkingSensorData()
+}
+
+var noOfBayPolygons = 0
+
+// BAY STYLES
+
+var noMarkerIDStyle = {
+  fillColor: 'rgba(180, 180, 180, 0.5)',
+  strokeColor: 'black',
+  strokeThickness: 1
+}
+
+var sensorNotFoundStyle = {
+  fillColor: 'rgba(0, 255, 0, 0.5)',
+  strokeColor: 'red',
+  strokeThickness: 1
+}
+
+var occupiedBayStyle = {
+  fillColor: 'rgba(255, 0, 255, 0.5)',
+  strokeColor: 'black',
+  strokeThickness: 1
+}
+
+var unoccupiedBayStyle = {
+  fillColor: 'rgba(0, 255, 0, 0.5)',
+  strokeColor: 'rgba(0, 255, 0, 0.75)',
+  strokeThickness: 2
+} 
+
+var drawOccupiedOverlayOntoMap = () => {
+  var drawPolygonOnMap = (points, style) => {
+    var polygon = new Microsoft.Maps.Polygon(points, {
+      fillColor: style.fillColor,
+      strokeColor: style.strokeColor,
+      strokeThickness: style.strokeThickness
+    })
+
+    //Add the polygon to map
+    mapObject.entities.push(polygon)
+    noOfBayPolygons += 1
+  }
+
+  var drawBayAsOccupied = bay => {
+    drawPolygonOnMap(bay.points, occupiedBayStyle)
+  }
+
+  var drawBayAsUnoccupied = bay => {
+    drawPolygonOnMap(bay.points, unoccupiedBayStyle)
+  }
+
+  var drawBayAsNoMarkerID = bay => {
+    drawPolygonOnMap(bay.points, noMarkerIDStyle)
+  }
+
+  var drawBayAsSensorNotFound = bay => {
+    drawPolygonOnMap(bay.points, sensorNotFoundStyle)
+  }
+
+  var drawParkingBayWithSensor = bay => {
+    var markerID = bay.market_id
+
+    if (markerID === undefined) {
+      drawBayAsNoMarkerID(bay)
+    } else {
+      var sensor = parkingSensorLookup(markerID)
+      if (sensor === undefined) {
+        drawBayAsSensorNotFound(bay)
+      } else {
+        if (sensor.isOccupied) {
+          drawBayAsOccupied(bay)
+        } else {
+          drawBayAsUnoccupied(bay)
+        }
+      }
+    }
+  }
+
+  var removeAllEntitiesFromMap = () => {
+    var length = mapObject.entities.getLength()
+    for (var i = length - 1; i >= 0; i--) {
+      var pushpin = mapObject.entities.get(i);
+      if (pushpin instanceof Microsoft.Maps.Pushpin) {
+        mapObject.entities.removeAt(i);
+      }
+    }
+    noOfBayPolygons = 0
+  }
+
+  var drawAllParkingBays = () => {
+    parkingBays.each(parkingBay => { 
+      drawParkingBayWithSensor(parkingBay)
+    })
+  }
+
+  var showOccupiedBaysOnMap = () => {
+    // GUARD CLAUSE for use Bing Maps JS classes
+    if (!mapControlLoaded) {
+      console.log('map object not loaded')
+      return
+    }
+
+    // TODO: draw polys
+    removeAllEntitiesFromMap()
+    drawAllParkingBays()
+  }
+
+  showOccupiedBaysOnMap()
+}
+
+preloadBaysIntoClient()
 
 
