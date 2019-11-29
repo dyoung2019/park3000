@@ -4,7 +4,7 @@ Park3000 displays parking availabilities in Melbourne CBD to provide birds eye v
 link
 
 ## Disclaimer
-Data used for this project is owned by City of Melbourne and it is free to public. Park3000 was a project to demonstrate competency in working with API and visulising data and takes no responbsibilities of the contens of data. Please use information at your own risk for more information, please visit https://data.melbourne.vic.gov.au/
+Data used for this project is owned by City of Melbourne which is free to public. Project Park3000 is focuses on demonstrating competencies in creating full stack web app, working with APIs and visualising data and takes no responsibilities of the contents of data. Please use the app at your own risk. For more information, please visit https://data.melbourne.vic.gov.au/
 
 ## Technologies
 * Ruby 2.6.1
@@ -17,7 +17,9 @@ Data used for this project is owned by City of Melbourne and it is free to publi
 * CSS
  
 ## Data models
-ER diagram
+ER Diagram
+![alt text]
+(https://github.com/SunLee128/park3000/blob/db/app/assets/images/ER%20Diagram.png)
 
 ## Team
 David Young, Bryan Woo and Sun Lee from General Assembly Melbourne
