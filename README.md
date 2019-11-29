@@ -1,24 +1,27 @@
-# README
+# Park3000
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Park3000 displays parking availabilities in Melbourne CBD to provide birds eye view of current parking situation. Parking bay sensors are updated in every 2 minutes but not in operation on Public Holidays. Car parks will be shown as vacant when blocked by construction zones.
+![alt text]
+(https://github.com/SunLee128/park3000/blob/db/app/assets/images/Screen%20Shot.png)
 
-Things you may want to cover:
+## Disclaimer
+Data used for this project is owned by City of Melbourne which is free to public. Project Park3000 focuses on demonstrating competencies in creating full stack web app, working with APIs and visualising data and takes no responsibilities of the contents of data. Please use the app at your own risk. For more information, please visit https://data.melbourne.vic.gov.au/
 
-* Ruby version
+## Technologies
+* Ruby 2.6.1
+* Rails 6
+* Bing Map API
+* Soda API for City of Melbourne data
+* Javascript 
+* JQuery
+* HTML
+* CSS
+ 
+## Data models
+ER Diagram
+![alt text]
+(https://github.com/SunLee128/park3000/blob/db/app/assets/images/ER%20Diagram.png)
 
-* System dependencies
+## Team
+David Young, Bryan Woo and Sun Lee from General Assembly Melbourne
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
