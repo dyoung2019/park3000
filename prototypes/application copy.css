@@ -34,7 +34,7 @@
   position: absolute;
   z-index: 2;
   margin: 20px;
-  width: auto;
+  width: 400px;
   height:auto;
   background-color: white;
   display: flex;
@@ -44,22 +44,26 @@
 }
 .menu-btn{
   cursor: pointer;
-  height: 20px;
+  height: 30px;
   width: auto;
   background-color: transparent;
   border: transparent;
   display: block;
 
 }
-.search-input{
-  height: 20px;
+
+#searchBox{
+  height: 30px;
+  width:350px;
   border: none;
+  font-size: 13px;
 }
 
 .fa {
   display: inline-block;
   font-size: 15px;
 }
+
 footer {
   display: flex;
   justify-content: center;
@@ -72,18 +76,17 @@ footer {
   margin-right: auto;
   bottom: 0px;
 }
+
 .about {
-  /* position: absolute;
-  z-index: 1003; */
-  /* margin-bottom: 31px;
-  margin-left: 5px; */
   padding:3px 3px 3px 3px;
-  border-radius: 8px;
+  border-radius: 8px 8px 0px 0px;
   cursor: pointer;
-  left: 0px;
-  bottom: 0px;
+  width: 10vw;
+ 
   background-color: white;
+  text-align: center;
 }
+
 .model {
   position: absolute;
   z-index: -2;
@@ -98,8 +101,7 @@ footer {
   z-index: 1002;
 }
 .about-box {
-  width: 40vw;
-  height: 40vh;
+  width: 60vw;
   background-color: white;
   border-radius: 10px;
 }
@@ -116,7 +118,7 @@ footer {
   border: transparent;
 }
 .about-text {
-  padding:3px 10px 3px 10px;
+  padding:3px 10px 15px 10px;
 }
 
 .menu-list {

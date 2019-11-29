@@ -40,9 +40,9 @@ class ParkingMapController < ApplicationController
     #             res_end_mins = restriction['end_time'].to_s[14..15].to_i/60.to_f
     #             end_time = res_end_hour+res_end_mins
     #             if @time_for_check > st_time && @time_for_check < end_time
-    #               # puts "now #{bay['marker_id']} is #{restriction['maximum_stay']}mins parking and #{restriction['cost_per_hour']/100} per hour"
+    #               puts "now #{bay['marker_id']} is #{restriction['maximum_stay']}mins parking and #{restriction['cost_per_hour']/100} per hour"
     #             else
-    #               # puts "now #{bay['marker_id']} is free"
+    #               puts "now #{bay['marker_id']} is free"
     #             end
 
 
