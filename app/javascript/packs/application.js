@@ -303,7 +303,7 @@ var getMap = () => {
       credentials: 'AhRiVF93i8Bg2gtWa8XJbkh8R9iEooDM7slujH4_7joXt9qScM59JUHL2udHZcco',
       center: center,
       mapTypeId: Microsoft.Maps.MapTypeId.road,
-      zoom: 16
+      zoom: 18
     }
   );
   //autosuggest class
