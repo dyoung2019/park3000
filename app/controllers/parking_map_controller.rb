@@ -68,10 +68,10 @@ class ParkingMapController < ApplicationController
   
     
 
-    puts @time_for_check
-    puts @bays.length
-    puts @restrictions.length
-    puts @zones.length
+    # puts @time_for_check
+    # puts @bays.length
+    # puts @restrictions.length
+    # puts @zones.length
     render :parking_map
   end
 
