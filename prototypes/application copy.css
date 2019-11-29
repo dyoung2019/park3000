@@ -13,15 +13,12 @@
  *= require_tree .
  *= require_self
  */
-body {
-  font-family: ‘Open Sans’, sans-serif;
-}
 
  main {
   display: flex;
   /* z-index: -3; */
   width: 100vw;
-  height: 95vh;
+  height: 100vh;
   /* background-color: bisque; */
 }
 
@@ -29,15 +26,15 @@ body {
   position: relative;
   /* z-index: ; */
   width: 100vw;
-  height: 95vh;
+  height: 100vh;
   background-color: cornflowerblue;
 }
 
 .search-bar {
   position: absolute;
   z-index: 2;
-  margin: 15px;
-  width: 340px;
+  margin: 20px;
+  width: 400px;
   height:auto;
   background-color: white;
   display: flex;
@@ -54,9 +51,10 @@ body {
   display: block;
 
 }
+
 #searchBox{
   height: 30px;
-  width: 310px;
+  width:350px;
   border: none;
   font-size: 13px;
 }
@@ -65,79 +63,35 @@ body {
   display: inline-block;
   font-size: 15px;
 }
-.far {
-  color: white;
-}
-
-.label-container {
-  position: absolute;
-  z-index: 2;
-  bottom: 15vh;
-  right: 0px;
-  width: 80px;
-  color: white;
-  background-color: rgb(73, 73, 73);
-  font-size: 10px;
-  align-items: center;
-  padding: 4px 0;
-  border-radius: 8px 0 0 8px;
-}
-.label-color{
-  width: 50px;
-  height:5px;
-  background-color: red;
-  margin: auto auto 1px auto;
-}
-.lebel-text{
- text-align: center; 
-}
-.label{
-  margin: 6px 0;
-}
-#unoccupied {
-  background-color: rgba(0, 255, 0, 0.5);
-}
-#occupied {
-  background-color: rgba(255, 0, 255, 0.5);
-}
-#no-sensor {
-  background-color: rgba(180, 180, 180, 0.5);
-}
 
 footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   position: absolute;
   z-index: 1003;
-  height:5vh;
+  height:30px;
   width:100vw;
   margin-bottom: 0px;
   margin-left: auto;
   margin-right: auto;
   bottom: 0px;
-  color: white;
-  background-color: rgb(73, 73, 73);
 }
+
 .about {
-  /* position: absolute;
-  z-index: 1003; */
-  /* margin-bottom: 31px;
-  margin-left: 5px; */
-  padding:3px 3px 3px 10px;
+  padding:3px 3px 3px 3px;
+  border-radius: 8px 8px 0px 0px;
   cursor: pointer;
+  width: 10vw;
  
+  background-color: white;
+  text-align: center;
 }
-.who-we-are {
-  padding:3px 10px 3px 3px;
-  font-size: 10px;
-  /* cursor: pointer; */
-}
+
 .model {
   position: absolute;
   z-index: -2;
   width: 100vw;
-  height: 95vh;
+  height: 100vh;
   background-color: rgba(93, 94, 95, 0.47);
   display: flex;
   justify-content: center;
@@ -148,9 +102,7 @@ footer {
 }
 .about-box {
   width: 60vw;
-  /* height: 40vh; */
-  background-color: rgb(73, 73, 73);
-  color: white;
+  background-color: white;
   border-radius: 10px;
 }
 .about-close{
@@ -160,19 +112,19 @@ footer {
 
 .about-close-btn{
   cursor: pointer;
-  height: 15px;
+  height: 20px;
   width: auto;
   background-color: transparent;
   border: transparent;
 }
 .about-text {
-  padding:0px 10px 15px 10px;
+  padding:3px 10px 15px 10px;
 }
 
 .menu-list {
   position: absolute;
   z-index: -2;
-  margin-left: 15px;
+  margin-left: 20px;
   margin-top: 60px;
   width: 100px;
   background-color: white;
@@ -244,22 +196,5 @@ footer {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-}
-
-
-@media (max-width: 800px) {
-  .search-bar {
-    width: 64vw;
-    margin-top:53px;
-    left:18vw
-  }
-
-  #searchBox {
-    width: 56vw;
-  }
-  .menu-list {
-    margin-top: 95px;
-    left:18vw
-  }
 }
 
