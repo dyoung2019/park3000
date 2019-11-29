@@ -69,7 +69,7 @@ window.addEventListener('load', () => {
   }
 
   var openMenu = () => {
-    console.log('menu')
+    // console.log('menu')
     if (menuList.classList[1] === 'active1') {
       menuList.classList.remove('active1')
       container.forEach((aCont) => { aCont.classList.remove('active2') })
@@ -81,23 +81,23 @@ window.addEventListener('load', () => {
 
   var oneChecked = () => {
     if (containerInput[0].checked == true) {
-      console.log('hi')
+      // console.log('hi')
     } else {
-      console.log('bye')
+      // console.log('bye')
     }
   }
   var twoChecked = () => {
     if (containerInput[1].checked == true) {
-      console.log('2hi')
+      // console.log('2hi')
     } else {
-      console.log('2bye')
+      // console.log('2bye')
     }
   }
   var threeChecked = () => {
     if (containerInput[2].checked == true) {
-      console.log('3hi')
+      // console.log('3hi')
     } else {
-      console.log('3bye')
+      // console.log('3bye')
     }
   }
 
