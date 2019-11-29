@@ -275,29 +275,6 @@ var unoccupiedBayStyle = {
 
 // BAY STYLES
 
-var noMarkerIDStyle = {
-  fillColor: 'rgba(180, 180, 180, 0.5)',
-  strokeColor: 'black',
-  strokeThickness: 1
-}
-
-var sensorNotFoundStyle = {
-  fillColor: 'rgba(180, 180, 180, 0.5)',
-  strokeColor: 'black',
-  strokeThickness: 1
-}
-
-var occupiedBayStyle = {
-  fillColor: 'rgba(255, 0, 255, 0.5)',
-  strokeColor: 'rgba(255, 0, 255, 0.75)',
-  strokeThickness: 1
-}
-
-var unoccupiedBayStyle = {
-  fillColor: 'rgba(0, 255, 0, 0.5)',
-  strokeColor: 'rgba(0, 255, 0, 0.75)',
-  strokeThickness: 2
-} 
 
 // // GLOBAL JS VARIABLES
 var sensorRequestLimit = 5000

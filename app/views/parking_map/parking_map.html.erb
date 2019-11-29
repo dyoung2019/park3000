@@ -1,7 +1,6 @@
 
     <main>
-    <div class="map">
-      <%# <button class="refresh-off-button">REFRESH OFF (every 2 mins)</button> %>          
+    <div class="map">        
     </div>
     <div class="search-bar">
       <button class="menu-btn"><i class="fa fa-bars"></i></button>
@@ -9,7 +8,6 @@
           <input type='text' id='searchBox' />
       </div>
     </div>
-   
     <div class="menu-list">
         <label class="container">One
           <input type="checkbox">
@@ -32,10 +30,25 @@
         <p class="about-text">Park3000 is an app displays parking information in Melbourne CBD via City of Melbourne's Open Data API. Parking bay sensors are updated in every 2 minutes but not in operation on Public Holidays. Car parks will be shown as vacant when blocked by construction zones. For more information about data, please visit <a href="https://data.melbourne.vic.gov.au/" target="_blank">https://data.melbourne.vic.gov.au.</a> Powered by Bing Map. Developed by David Young, Bryan Woo and Sun Lee from General Assembly Melbourne.</p>
       </div>
     </div>
+    <div class="label-container">
+      <div class="label">
+        <div class="label-color" id="unoccupied"></div>
+        <p class="lebel-text">Unoccupied</p>      
+      </div>
+      <div class="label">
+        <div class="label-color" id="occupied"></div>
+        <p class="lebel-text">Occupied</p>      
+      </div>
+      <div class="label">
+        <div class="label-color" id="no-sensor"></div>
+        <p class="lebel-text">No sensor</p>      
+      </div>
+    </div>
     
   </main>
   <footer>
       <div class="about">About</div>
+      <div class="who-we-are"><p>Developed by David Young, Bryan Woo and Sun Lee</p></div>
   </footer>
 
  
