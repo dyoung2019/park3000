@@ -1,9 +1,6 @@
-# README
+# Park3000
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+Park3000 is an app displays parking information in Melbourne CBD via City of Melbourne's Open Data API. Parking bay sensors are updated in every 2 minutes but not in operation on Public Holidays. Car parks will be shown as vacant when blocked by construction zones.
 
 * Ruby version
 
@@ -22,3 +19,4 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+

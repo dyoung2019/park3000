@@ -12,18 +12,18 @@ class ParkingMapController < ApplicationController
   # end
 
   def index
-    @current_time = Time.new
-    @current_day = @current_time.wday  # => 0: Day of week: 0 is Sunday
-    @current_hour = @current_time.hour
-    @current_mins = (@current_time.min.to_i)/60.to_f
-    @time_for_check = @current_hour+@current_mins
+    # @current_time = Time.new
+    # @current_day = @current_time.wday  # => 0: Day of week: 0 is Sunday
+    # @current_hour = @current_time.hour
+    # @current_mins = (@current_time.min.to_i)/60.to_f
+    # @time_for_check = 13.3
 
    
 
 
-    @bays= ParkingBay.take(1)
-    @zones = PayStayZone.take(1)
-    @restrictions = ParkingRestriction.take(1)
+    # @bays= ParkingBay.all
+    # @zones = PayStayZone.all
+    # @restrictions = ParkingRestriction.all
     
     # @count = 0
     # @bays.each do |bay|
