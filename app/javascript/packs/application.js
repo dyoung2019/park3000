@@ -349,8 +349,6 @@ var getMap = () => {
         mapObject.entities.removeAt(i);
       }
     }
-
-    $.ajax(options).done(handleParkingSensorsResponse)
   }
 
   function suggestionSelected(result) {
@@ -521,11 +519,11 @@ var drawOccupiedOverlayOntoMap = () => {
     }
   }
 
-  var removeAllEntitiesFromMap = () => {
+  var removeAllPolygonsFromMap = () => {
     var length = mapObject.entities.getLength()
     for (var i = length - 1; i >= 0; i--) {
       var pushpin = mapObject.entities.get(i);
-      if (pushpin instanceof Microsoft.Maps.Pushpin) {
+      if (pushpin instanceof Microsoft.Maps.Polygon) {
         mapObject.entities.removeAt(i);
       }
     }
@@ -553,8 +551,7 @@ var drawOccupiedOverlayOntoMap = () => {
       return
     }
 
-    // TODO: draw polys
-    removeAllEntitiesFromMap()
+    removeAllPolygonsFromMap()
     drawAllParkingBays()
   }
 
